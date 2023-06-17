@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        /* Inline CSS styles */
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .title {
+            font-size: 24px;
+            color: #333333;
+            margin-bottom: 10px;
+        }
+
+        .content {
+            font-size: 16px;
+            color: #666666;
+        }
+
+        .verification-code {
+            font-size: 20px;
+            color: #007bff;
+            font-weight: bold;
+        }
+
+        .button {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #ffffff;
+            text-decoration: none;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h2 class="title">Email Verification</h2>
+        </div>
+        <div class="content">
+            <p>Thank you for signing up!</p>
+            <p>Please use the verification code below to verify your email:</p>
+            <p class="verification-code">{{ verification_code }}</p>
+            <p>If you did not sign up for an account, you can safely ignore this email.</p>
+            <p>Regards,</p>
+            <p>Your Website Team</p>
+        </div>
+    </div>
+</body>
+</html>
