@@ -1,0 +1,210 @@
+
+
+{% load static %}
+
+<html>
+
+<head>
+    <link rel="stylesheet" href="{% static '/css/foodmunch.css'%}">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous"/>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+    <script src="https://kit.fontawesome.com/20c5629a29.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="{% static '/css/foodmunch.css'%}">
+    <link rel="stylesheet" href=""{% static '/css/mdb.dark.min.css'%}>
+    <link rel="stylesheet" href=""{% static '/css/mdb.dark.rtl.min.css'%}>
+    <link rel="stylesheet" href=""{% static '/css/mdb.min.css'%}>
+    <link rel="stylesheet" href=""{% static '/css/mdb.rtl.min.css'%}>
+
+
+</head>
+
+<body>
+    {% include 'accounts/navbarmain.html' %}
+
+
+
+    <br>
+    
+    <main class="mt-5 pt-4">
+      <div class="container dark-grey-text mt-5">
+  
+        <!--Grid row-->
+        <div class="row wow fadeIn">
+  
+          <!--Grid column-->
+          <div class="col-md-6 mb-4">
+  
+            <img src="{{object.image.url}}" class="img-fluid" alt="test image
+            ">
+  
+          </div>
+          <!--Grid column-->
+  
+          <!--Grid column-->
+          <div class="col-md-6 mb-4">
+  
+            <!--Content-->
+            <div class="p-4">
+  
+              <div class="mb-3">
+                <a href="">
+                  <span class="badge purple mr-1">{{ object.get_category_display }}</span>
+                </a>
+              </div>
+  
+              <p class="lead">
+                {% if object.discount_price %}
+                <span class="mr-1">
+                  <del>₹{{ object.price }}</del>
+                </span>
+                <span>₹{{ object.discount_price }}</span>
+                {% else %}
+                <span>₹{{ object.price }}</span>
+                {% endif %}
+              </p>
+  
+              <p class="lead font-weight-bold">Description</p>
+  
+              <p>{{ object.description }}</p>
+  
+              {% comment %}
+               <form class="d-flex justify-content-left">
+                <!-- Default input -->
+                <input type="number" value="1" aria-label="Search" class="form-control" style="width: 100px">
+                <button class="btn btn-primary btn-md my-0 p" type="submit">
+                  Add to cart
+                  <i class="fas fa-shopping-cart ml-1"></i>
+                </button>
+  
+              </form> {% endcomment %}
+              <a href="{{ object.get_add_to_cart_url }}" class="btn btn-primary btn-md my-0 p">
+                Add to cart
+                <i class="fas fa-shopping-cart ml-1"></i>
+              </a>
+              <a href="{% url 'core:order-summary' %}" class="btn btn-danger btn-md my-0 p">
+                Go to Cart
+              </a>
+  
+            </div>
+            <!--Content-->
+  
+          </div>
+          <!--Grid column-->
+  
+        </div>
+        <!--Grid row-->
+  
+        <hr>
+  
+        <!--Grid row-->
+        <div class="row d-flex justify-content-center wow fadeIn">
+  
+          <!--Grid column-->
+          <div class="col-md-6 text-center">
+  
+            <h4 class="my-4 h4">Additional information</h4>
+  
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Natus suscipit modi sapiente illo soluta odit
+              voluptates,
+              quibusdam officia. Neque quibusdam quas a quis porro? Molestias illo neque eum in laborum.</p>
+  
+          </div>
+          <!--Grid column-->
+  
+        </div>
+        <!--Grid row-->
+  
+        <!--Grid row-->
+        <div class="row wow fadeIn">
+  
+          <!--Grid column-->
+          <div class="col-lg-4 col-md-12 mb-4">
+  
+            <img src="https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Products/11.jpg" class="img-fluid" alt="">
+  
+          </div>
+          <!--Grid column-->
+  
+          <!--Grid column-->
+          <div class="col-lg-4 col-md-6 mb-4">
+  
+            <img src="https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Products/12.jpg" class="img-fluid" alt="">
+  
+          </div>
+          <!--Grid column-->
+  
+          <!--Grid column-->
+          <div class="col-lg-4 col-md-6 mb-4">
+  
+            <img src="https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Products/13.jpg" class="img-fluid" alt="">
+  
+          </div>
+          <!--Grid column-->
+  
+        </div>
+        <!--Grid row-->
+  
+      </div>
+    </main>
+
+
+
+{% comment %} <div class="row">
+    <div class="col-12 col-md-5">
+      <div class="text-center">
+        <img
+        src="{{object.image.url}}"
+        alt="{{object.image.url}}"
+        class="healthy-food-section-img"
+        />
+      </div>
+    </div>
+    <div class="col-12 col-md-7">
+      <h1 class="healthy-food-section-heading">
+        {{object.title}}
+      </h1>
+      <p class="healthy-food-section-description">
+        {{object.description}}
+        {{object.category}}
+      </p>
+      <button class="custom-button">AddToCart</button>
+    </div>
+  </div>
+
+  <br>
+  <br>
+  <br>
+  <br>
+
+
+  <div class="row">
+    {% comment %} {% for sweet in sweets  %} {% endcomment %}
+    
+    
+    {% comment %} <div class="col-12 col-md-6 col-lg-3">
+        <a href="{% url 'core:product' object.slug %}">
+      <div class="shadow menu-item-card p-3 mb-3">
+        <img
+          src="{{object.image.url}}"
+          alt="{{object.image}}"
+          class="menu-item-image w-100"
+        /></a>
+        <h1 class="menu-card-title">{{object.title}}</h1>
+        
+        <p>{{object.price}} {{object.discount_price}}</p>
+          
+          <svg width="16px" height="16px" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="#d0b200" xmlns="http://www.w3.org/2000/svg">
+            <path
+              fill-rule="evenodd"
+              d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+            />
+          </svg>
+        
+      </div>
+    </div>
+    
+
+
+</div> {% endcomment %}

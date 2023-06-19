@@ -1,0 +1,216 @@
+{% load static %}
+<html>
+    <head>
+        <title>Cart List</title>
+        <link rel="stylesheet" href="{% static '/css/foodmunch.css'%}">
+    <link rel="stylesheet" href=""{% static '/css/mdb.dark.min.css'%}>
+    <link rel="stylesheet" href=""{% static '/css/mdb.dark.rtl.min.css'%}>
+    <link rel="stylesheet" href=""{% static '/css/mdb.min.css'%}>
+    <link rel="stylesheet" href=""{% static '/css/mdb.rtl.min.css'%}>
+    </head>
+
+    <!-- Navbar -->
+{% include 'accounts/navbarmain.html' %}
+<!-- Navbar -->
+
+<!--Main layout-->
+<main class="mt-5 pt-4">
+    <div class="container">
+        <!-- Heading -->
+        <h2 class="my-5 text-center">Your Items</h2>
+
+        <!--Grid row-->
+        <div class="row">
+            <!--Grid column-->
+            
+            <div class="col-md-8 mb-4">
+              {% if order_items %}
+              {% for object in order_items %}
+
+                <!--Card-->
+                
+                
+                
+                
+                <div class="row wow fadeIn">
+                  
+
+                    <!--Grid column-->
+                    <div class="col-md-6 mb-4">
+            
+                      <img src="{{object.item.image.url}}" class="img-fluid" alt="{{object.item.image.url}}
+                      ">
+                      
+            
+                    </div>
+                    <!--Grid column-->
+            
+                    <!--Grid column-->
+                    <div class="col-md-6 mb-4">
+            
+                      <!--Content-->
+                      <div class="p-4">
+            
+                        <div class="mb-3">
+                          <a href="">
+                            <span class="badge purple mr-1">{{ object.category }}</span>
+                          </a>
+                        </div>
+                        <p class="lead font-weight-bold">{{object.item.title}}</p>
+            
+                        <p class="lead">
+                          {% if object.item.discount_price %}
+                          <span class="mr-1">
+                            <del>₹{{ object.get_total_item_price }}</del>
+                          </span>
+                          <span>₹{{ object.get_total_discount_item_price }}</span>
+                          {% else %}
+                          <span>₹{{ object.get_total_item_price }}</span>
+                          {% endif %}
+                        </p>
+            
+                        <p class="lead font-weight-bold">Description</p>
+            
+                        <p>{{ object.item.description }}</p>
+                        <a href="{% url 'core:remove-single-item-from-cart' object.item.slug %}" class="btn btn-danger"style="color:white;margin-right:2px;">-
+                        </a>
+                       
+                        <button class="btn btn-primary btn-md my-0 p"style="margin-right:2px;">
+                           
+                          {{ object.quantity }}
+                          
+
+                        </button>
+                        <a href="{{ object.item.get_add_to_cart_url }}"style="color:white;"class="btn btn-success">+
+                        </a>
+                       
+                        <a href="{{ object.item.get_remove_from_cart_url }}" class="btn btn-danger btn-md my-0 p">
+                          Remove from cart
+                        </a>
+            
+                      </div>
+                      <!--Content-->
+            
+                    </div>
+                    <!--Grid column-->
+            
+                  </div>
+                  {% endfor %}
+                  {% else %}
+            <h1>You don't have any items in the cart</h1>
+            {% endif %}
+                  
+
+                  
+                <!--/.Card-->
+            </div>
+            
+            
+            
+            <!--Grid column-->
+
+            <!--Grid column-->
+            {% if order_items %}
+            <div class="col-md-4 mb-4">
+                
+                <!-- Heading -->
+                <div style="position: sticky; top:100px; padding-top: 10px;">
+                              
+                <h4 class="d-flex justify-content-between align-items-center mb-3">
+                    <span class="text-muted">Your cart</span>
+                    <span class="badge rounded-pill badge-primary">{{order_count}}</span>
+                </h4>
+                {% if order_items %}
+                <a href="{% url 'core:checkout' %}">
+                <button class="btn btn-primary" type="button" id="button-addon2" data-mdb-ripple-color="dark">
+                  Checkout
+                </button>
+              </a>
+              {% endif %}
+                
+                
+
+
+              
+                
+
+                <!-- Cart -->
+                <ul class="list-group mb-3" style="position: sticky; top:100px; padding-top: 10px;">
+                  {% for object in order_items %}
+                    <li class="list-group-item d-flex justify-content-between">
+                        <div>
+                            <h6 class="my-0">{{object.item.title}}</h6>
+                            <small class="text-muted">{{ object.item.description }}</small>
+                        </div>
+                        <span class="text-muted">
+                          {% if object.item.discount_price %}
+
+                          ₹{{ object.get_total_discount_item_price }}
+                          {% else %}
+                          {{ object.get_total_item_price }}                          
+                          {% endif %}
+                        
+                        </span>
+                    </li>
+                    {% endfor %}
+                  
+                   {% if order_total.coupon %}
+                    <li class="list-group-item d-flex justify-content-between bg-light">
+                        <div class="text-success">
+                            <h6 class="my-0">Promo code</h6>
+                            <small>{{order_total.coupon}}</small>
+                        </div>
+                        <span class="text-success">{{order_total.coupon.amount}}</span>
+                    </li>
+                    {% endif %}
+                    <li class="list-group-item d-flex justify-content-between">
+                        <span>Total (USD)</span>
+                        <strong>₹{{order_total.get_total}}</strong>
+                    </li>
+                </ul>
+            
+                <!-- Cart -->
+
+                <!-- Promo code -->
+                <form class="card p-2" action="{% url 'core:add-coupon-order-summary' %}" method="post">
+                  {% csrf_token %}  <!-- Include the CSRF token for security -->
+                  <div class="input-group mb-3">
+                    <input
+                      type="text"
+                      class="form-control"
+                      name="code"  
+                      placeholder="Promo code"
+                      aria-label="Promo code"
+                      aria-describedby="button-addon2"
+                    />
+                    <button class="btn btn-primary" type="submit" id="button-addon2" data-mdb-ripple-color="dark">
+                      redeem
+                    </button>
+                  </div>
+                  
+
+                </form>
+                
+
+                
+                <!-- Promo code -->
+
+            </div>
+            
+            <!--Grid column-->
+        </div>
+        {% endif %}
+        <!--Grid row-->
+    </div>
+</div>
+
+
+
+</main>
+<!--Main layout-->
+
+<!-- footer -->
+{% include 'core/footer.html' %}
+
+
+</html>
